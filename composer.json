@@ -1,0 +1,36 @@
+{
+    "name": "quanta/collections",
+    "type": "library",
+    "description": "Library providing collections",
+    "keywords": [
+        "collections"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/quantaphp/collections",
+    "support": {
+        "issues": "https://github.com/quantaphp/collections/issues",
+        "source": "https://github.com/quantaphp/collections"
+    },
+    "authors": [
+        {
+            "name": "pmall",
+            "email": "pierre.mallinjoud@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "eloquent/phony-kahlan": "^2.0",
+        "kahlan/kahlan": "^4.0",
+        "phpstan/phpstan": "^0.10.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quanta\\Collections\\": "src"
+        }
+    }
+}
