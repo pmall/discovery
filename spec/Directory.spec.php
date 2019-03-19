@@ -43,26 +43,6 @@ describe('Directory', function () {
 
             });
 
-            describe('->withFilter()', function () {
-
-                it('should return a new Directory with the given filters', function () {
-
-                    $test = $this->collection->withFilter(...[
-                        $filter1 = function () {},
-                        $filter2 = function () {},
-                        $filter3 = function () {},
-                    ]);
-
-                    expect($test)->toEqual(new Directory(__DIR__ . '/.test/directory', ...[
-                        $filter1,
-                        $filter2,
-                        $filter3,
-                    ]));
-
-                });
-
-            });
-
         });
 
         context('when there is filters', function () {
@@ -102,29 +82,6 @@ describe('Directory', function () {
 
             });
 
-            describe('->withFilter()', function () {
-
-                it('should return a new Directory with the given filters', function () {
-
-                    $test = $this->collection->withFilter(...[
-                        $filter4 = function () {},
-                        $filter5 = function () {},
-                        $filter6 = function () {},
-                    ]);
-
-                    expect($test)->toEqual(new Directory(__DIR__ . '/.test/directory', ...[
-                        $this->filter1,
-                        $this->filter2,
-                        $this->filter3,
-                        $filter4,
-                        $filter5,
-                        $filter6,
-                    ]));
-
-                });
-
-            });
-
         });
 
     });
@@ -157,26 +114,6 @@ describe('Directory', function () {
 
             });
 
-            describe('->withFilter()', function () {
-
-                it('should return a new Directory with the given filters', function () {
-
-                    $test = $this->collection->withFilter(...[
-                        $filter1 = function () {},
-                        $filter2 = function () {},
-                        $filter3 = function () {},
-                    ]);
-
-                    expect($test)->toEqual(new Directory(__DIR__ . '/.test/notfound', ...[
-                        $filter1,
-                        $filter2,
-                        $filter3,
-                    ]));
-
-                });
-
-            });
-
         });
 
         context('when there is filters', function () {
@@ -204,29 +141,6 @@ describe('Directory', function () {
                     $test = $this->collection->getIterator();
 
                     expect($test)->toEqual(new ArrayIterator([]));
-
-                });
-
-            });
-
-            describe('->withFilter()', function () {
-
-                it('should return a new Directory with the given filters', function () {
-
-                    $test = $this->collection->withFilter(...[
-                        $filter4 = function () {},
-                        $filter5 = function () {},
-                        $filter6 = function () {},
-                    ]);
-
-                    expect($test)->toEqual(new Directory(__DIR__ . '/.test/notfound', ...[
-                        $this->filter1,
-                        $this->filter2,
-                        $this->filter3,
-                        $filter4,
-                        $filter5,
-                        $filter6,
-                    ]));
 
                 });
 

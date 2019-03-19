@@ -50,12 +50,4 @@ final class Directory implements \IteratorAggregate
             return new \ArrayIterator([]);
         }
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function withFilter(callable ...$filters): Directory
-    {
-        return new Directory($this->path, ...$this->filters, ...$filters);
-    }
 }

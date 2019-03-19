@@ -53,12 +53,4 @@ final class Psr4Namespace implements \IteratorAggregate
             ...array_merge($this->filters, ['class_exists'])
         );
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function withFilter(callable ...$filters): Psr4Namespace
-    {
-        return new Psr4Namespace($this->root, $this->path, ...$this->filters, ...$filters);
-    }
 }
