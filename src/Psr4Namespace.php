@@ -46,9 +46,9 @@ final class Psr4Namespace implements \IteratorAggregate
     {
         return new FilteredCollection(
             new MappedCollection(
-                new Directory($this->path, new IsPsr4ClassDefinitionFile),
+                new Directory($this->path, new HasClassName),
                 new ToRelativePathname($this->path),
-                new ToFqcn($this->root)
+                new ToPsr4Fqcn($this->root)
             ),
             ...array_merge($this->filters, ['class_exists'])
         );

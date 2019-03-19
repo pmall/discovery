@@ -1,12 +1,12 @@
 <?php
 
-use Quanta\Collections\ToFqcn;
+use Quanta\Collections\ToPsr4Fqcn;
 use Quanta\Collections\Directory;
 use Quanta\Collections\MappedCollection;
 use Quanta\Collections\ToRelativePathname;
 use Quanta\Collections\FilteredCollection;
 use Quanta\Collections\Psr4Namespace;
-use Quanta\Collections\IsPsr4ClassDefinitionFile;
+use Quanta\Collections\HasClassName;
 
 describe('Psr4Namespace', function () {
 
@@ -32,9 +32,9 @@ describe('Psr4Namespace', function () {
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new IsPsr4ClassDefinitionFile),
+                        new Directory(__DIR__ . '/.test/directory', new HasClassName),
                         new ToRelativePathname(__DIR__ . '/.test/directory'),
-                        new ToFqcn('Test\\NS')
+                        new ToPsr4Fqcn('Test\\NS')
                     ),
                     'class_exists'
                 ));
@@ -71,9 +71,9 @@ describe('Psr4Namespace', function () {
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new IsPsr4ClassDefinitionFile),
+                        new Directory(__DIR__ . '/.test/directory', new HasClassName),
                         new ToRelativePathname(__DIR__ . '/.test/directory'),
-                        new ToFqcn('Test\\NS')
+                        new ToPsr4Fqcn('Test\\NS')
                     ),
                     $this->filter1,
                     $this->filter2,

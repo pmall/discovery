@@ -1,22 +1,18 @@
 <?php
 
-use Quanta\Collections\ToFqcn;
+use Quanta\Collections\ToPsr4Fqcn;
 
-describe('ToFqcn', function () {
+describe('ToPsr4Fqcn', function () {
 
     context('when there the base namespace is empty', function () {
-
-        beforeEach(function () {
-
-            $this->mapper = new ToFqcn('');
-
-        });
 
         describe('->__invoke()', function () {
 
             it('should return a fully qualified class name from the given relative file path name', function () {
 
-                $test = ($this->mapper)('Baz/SomeClass.php');
+                $mapper = new ToPsr4Fqcn('');
+
+                $test = $mapper('Baz/SomeClass.php');
 
                 expect($test)->toEqual('Baz\\SomeClass');
 
@@ -28,17 +24,13 @@ describe('ToFqcn', function () {
 
     context('when the base namespace does not start or end with \\', function () {
 
-        beforeEach(function () {
-
-            $this->mapper = new ToFqcn('Foo\\Bar');
-
-        });
-
         describe('->__invoke()', function () {
 
             it('should return a fully qualified class name from the given relative file path name', function () {
 
-                $test = ($this->mapper)('Baz/SomeClass.php');
+                $mapper = new ToPsr4Fqcn('Foo\\Bar');
+
+                $test = $mapper('Baz/SomeClass.php');
 
                 expect($test)->toEqual('Foo\\Bar\\Baz\\SomeClass');
 
@@ -50,17 +42,13 @@ describe('ToFqcn', function () {
 
     context('when the base namespace starts with \\', function () {
 
-        beforeEach(function () {
-
-            $this->mapper = new ToFqcn('\\Foo\\Bar');
-
-        });
-
         describe('->__invoke()', function () {
 
             it('should return a fully qualified class name from the given relative file path name', function () {
 
-                $test = ($this->mapper)('Baz/SomeClass.php');
+                $mapper = new ToPsr4Fqcn('\\Foo\\Bar');
+
+                $test = $mapper('Baz/SomeClass.php');
 
                 expect($test)->toEqual('\\Foo\\Bar\\Baz\\SomeClass');
 
@@ -72,17 +60,13 @@ describe('ToFqcn', function () {
 
     context('when the base namespace ends with \\', function () {
 
-        beforeEach(function () {
-
-            $this->mapper = new ToFqcn('Foo\\Bar\\');
-
-        });
-
         describe('->__invoke()', function () {
 
             it('should return a fully qualified class name from the given relative file path name', function () {
 
-                $test = ($this->mapper)('Baz/SomeClass.php');
+                $mapper = new ToPsr4Fqcn('Foo\\Bar\\');
+
+                $test = $mapper('Baz/SomeClass.php');
 
                 expect($test)->toEqual('Foo\\Bar\\Baz\\SomeClass');
 

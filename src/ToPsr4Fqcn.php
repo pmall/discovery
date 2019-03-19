@@ -2,27 +2,28 @@
 
 namespace Quanta\Collections;
 
-final class ToFqcn
+final class ToPsr4Fqcn
 {
     /**
-     * The root namespace to prepend.
+     * The namespace prefix to prepend.
      *
      * @var string
      */
-    private $root;
+    private $prefix;
 
     /**
      * Constructor.
      *
-     * @param string $root
+     * @param string $prefix
      */
-    public function __construct(string $root)
+    public function __construct(string $prefix)
     {
-        $this->root = $root;
+        $this->prefix = $prefix;
     }
 
     /**
-     * Return a fully qualified class name from the given php file path name.
+     * Return a Psr4 fully qualified class name from the path name of the given
+     * php file.
      *
      * @param string $pathname
      * @return string
@@ -31,8 +32,8 @@ final class ToFqcn
     {
         $fqcn = str_replace('/', '\\', substr(ltrim($pathname, '/'), 0, -4));
 
-        return $this->root != ''
-            ? sprintf('%s\\%s', rtrim($this->root, '\\'), $fqcn)
+        return $this->prefix != ''
+            ? sprintf('%s\\%s', rtrim($this->prefix, '\\'), $fqcn)
             : $fqcn;
     }
 }
