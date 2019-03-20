@@ -5,11 +5,11 @@ namespace Quanta\Collections;
 final class Psr4Namespace implements \IteratorAggregate
 {
     /**
-     * The root namespace of the classes.
+     * The namespace prefix to prepend.
      *
      * @var string
      */
-    private $root;
+    private $prefix;
 
     /**
      * The path of the directory containing the class definition files.
@@ -28,13 +28,13 @@ final class Psr4Namespace implements \IteratorAggregate
     /**
      * Constructor.
      *
-     * @param string    $root
+     * @param string    $prefix
      * @param string    $path
      * @param callable  ...$filters
      */
-    public function __construct(string $root, string $path, callable ...$filters)
+    public function __construct(string $prefix, string $path, callable ...$filters)
     {
-        $this->root = $root;
+        $this->prefix = $prefix;
         $this->path = $path;
         $this->filters = $filters;
     }
@@ -48,9 +48,9 @@ final class Psr4Namespace implements \IteratorAggregate
             new MappedCollection(
                 new Directory($this->path, new HasClassName),
                 new ToRelativePathname($this->path),
-                new ToPsr4Fqcn($this->root)
+                new ToPsr4Fqcn($this->prefix)
             ),
-            ...array_merge($this->filters, ['class_exists'])
+            ...$this->filters
         );
     }
 }
