@@ -2,7 +2,7 @@
 
 namespace Quanta\Collections;
 
-final class ProjectClassCollection implements \IteratorAggregate
+final class ComposerInstallation implements \IteratorAggregate
 {
     /**
      * The vendor directory path.

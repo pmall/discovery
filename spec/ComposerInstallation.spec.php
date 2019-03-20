@@ -3,9 +3,9 @@
 use Quanta\Collections\Psr4Namespace;
 use Quanta\Collections\MergedCollection;
 use Quanta\Collections\FilteredCollection;
-use Quanta\Collections\AutoloadableClassCollection;
+use Quanta\Collections\ComposerInstallation;
 
-describe('AutoloadableClassCollection', function () {
+describe('ComposerInstallation', function () {
 
     beforeEach(function () {
 
@@ -63,7 +63,7 @@ describe('AutoloadableClassCollection', function () {
 
         beforeEach(function () {
 
-            $this->collection = new AutoloadableClassCollection($this->path . '/vendor');
+            $this->collection = new ComposerInstallation($this->path . '/vendor');
 
         });
 
@@ -220,7 +220,7 @@ describe('AutoloadableClassCollection', function () {
 
         beforeEach(function () {
 
-            $this->collection = new AutoloadableClassCollection($this->path . '/vendor', ...[
+            $this->collection = new ComposerInstallation($this->path . '/vendor', ...[
                 $this->filter1 = function () {},
                 $this->filter2 = function () {},
                 $this->filter3 = function () {},
