@@ -1,12 +1,12 @@
 <?php
 
-use Quanta\Collections\HasClassName;
+use Quanta\Collections\IsClassDefinitionFile;
 
-describe('HasClassName', function () {
+describe('IsClassDefinitionFile', function () {
 
     beforeEach(function () {
 
-        $this->filter = new HasClassName;
+        $this->filter = new IsClassDefinitionFile;
 
     });
 

@@ -2,11 +2,11 @@
 
 use Quanta\Collections\Directory;
 use Quanta\Collections\ToPsr4Fqcn;
-use Quanta\Collections\HasClassName;
 use Quanta\Collections\Psr4Namespace;
 use Quanta\Collections\MappedCollection;
 use Quanta\Collections\ToRelativePathname;
 use Quanta\Collections\FilteredCollection;
+use Quanta\Collections\IsClassDefinitionFile;
 
 describe('Psr4Namespace', function () {
 
@@ -32,7 +32,7 @@ describe('Psr4Namespace', function () {
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new HasClassName),
+                        new Directory(__DIR__ . '/.test/directory', new IsClassDefinitionFile),
                         new ToRelativePathname(__DIR__ . '/.test/directory'),
                         new ToPsr4Fqcn('Test\\NS')
                     )
@@ -70,7 +70,7 @@ describe('Psr4Namespace', function () {
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new HasClassName),
+                        new Directory(__DIR__ . '/.test/directory', new IsClassDefinitionFile),
                         new ToRelativePathname(__DIR__ . '/.test/directory'),
                         new ToPsr4Fqcn('Test\\NS')
                     ),

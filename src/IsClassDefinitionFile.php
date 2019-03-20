@@ -2,7 +2,7 @@
 
 namespace Quanta\Collections;
 
-final class HasClassName
+final class IsClassDefinitionFile
 {
     /**
      * Pattern matching a class name (from php manual)
