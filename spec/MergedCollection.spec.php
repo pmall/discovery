@@ -4,7 +4,7 @@ use Quanta\Collections\MergedCollection;
 
 describe('MergedCollection', function () {
 
-    context('when there is no iterable', function () {
+    context('when there is no collection', function () {
 
         beforeEach(function () {
 
@@ -20,11 +20,10 @@ describe('MergedCollection', function () {
 
         describe('->getIterator()', function () {
 
-            it('should return a generator yielding no value', function () {
+            it('should return an empty iterator', function () {
 
                 $test = $this->collection->getIterator();
 
-                expect($test)->toBeAnInstanceOf(Generator::class);
                 expect(iterator_to_array($test))->toEqual([]);
 
             });
@@ -33,7 +32,7 @@ describe('MergedCollection', function () {
 
     });
 
-    context('when there is iterables', function () {
+    context('when there is collections', function () {
 
         beforeEach(function () {
 
@@ -59,7 +58,7 @@ describe('MergedCollection', function () {
 
         describe('->getIterator()', function () {
 
-            it('should return a generator yielding all the values of all iterables', function () {
+            it('should return a collection containing all the values of all collections', function () {
 
                 $test = $this->collection->getIterator();
 

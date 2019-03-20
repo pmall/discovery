@@ -6,7 +6,7 @@ use Quanta\Collections\MappedCollection;
 
 describe('MappedCollection', function () {
 
-    context('when the iterable is an array', function () {
+    context('when the collection is an array', function () {
 
         context('when there is no mapper', function () {
 
@@ -24,11 +24,10 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -57,7 +56,7 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values mapped by all the mappers', function () {
+                it('should return a collection containing all the values mapped by all the mappers', function () {
 
                     $this->mapper1->with('value1')->returns('m1:value1');
                     $this->mapper2->with('m1:value1')->returns('m2:value1');
@@ -73,7 +72,6 @@ describe('MappedCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['m3:value1', 'm3:value2', 'm3:value3']);
 
                 });
@@ -84,7 +82,7 @@ describe('MappedCollection', function () {
 
     });
 
-    context('when the iterable is an iterator', function () {
+    context('when the collection is an iterator', function () {
 
         context('when there is no mapper', function () {
 
@@ -104,11 +102,10 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -139,7 +136,7 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values mapped by all the mappers', function () {
+                it('should return a collection containing all the values mapped by all the mappers', function () {
 
                     $this->mapper1->with('value1')->returns('m1:value1');
                     $this->mapper2->with('m1:value1')->returns('m2:value1');
@@ -155,7 +152,6 @@ describe('MappedCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['m3:value1', 'm3:value2', 'm3:value3']);
 
                 });
@@ -166,7 +162,7 @@ describe('MappedCollection', function () {
 
     });
 
-    context('when the iterable is a traversable', function () {
+    context('when the collection is a traversable', function () {
 
         context('when there is no mapper', function () {
 
@@ -190,11 +186,10 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -229,7 +224,7 @@ describe('MappedCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values mapped by all the mappers', function () {
+                it('should return a collection containing all the values mapped by all the mappers', function () {
 
                     $this->mapper1->with('value1')->returns('m1:value1');
                     $this->mapper2->with('m1:value1')->returns('m2:value1');
@@ -245,7 +240,6 @@ describe('MappedCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['m3:value1', 'm3:value2', 'm3:value3']);
 
                 });

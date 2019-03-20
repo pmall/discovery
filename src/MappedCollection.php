@@ -5,14 +5,14 @@ namespace Quanta\Collections;
 final class MappedCollection implements \IteratorAggregate
 {
     /**
-     * The elements to loop over.
+     * The collection to map.
      *
      * @var iterable
      */
-    private $elements;
+    private $collection;
 
     /**
-     * The mappers to apply on the iterable elements.
+     * The mappers to apply on the collection values.
      *
      * @var callable[]
      */
@@ -21,12 +21,12 @@ final class MappedCollection implements \IteratorAggregate
     /**
      * Constructor.
      *
-     * @param iterable $elements
+     * @param iterable $collection
      * @param callable ...$mappers
      */
-    public function __construct(iterable $elements, callable ...$mappers)
+    public function __construct(iterable $collection, callable ...$mappers)
     {
-        $this->elements = $elements;
+        $this->collection = $collection;
         $this->mappers = $mappers;
     }
 
@@ -35,20 +35,20 @@ final class MappedCollection implements \IteratorAggregate
      */
     public function getIterator()
     {
-        foreach ($this->elements as $element) {
-            yield array_reduce($this->mappers, [$this, 'reduced'], $element);
+        foreach ($this->collection as $value) {
+            yield array_reduce($this->mappers, [$this, 'reduced'], $value);
         }
     }
 
     /**
-     * Apply the given mapper to the given element.
+     * Apply the given mapper to the given value.
      *
-     * @param mixed     $element
+     * @param mixed     $value
      * @param callable  $mapper
      * @return mixed
      */
-    private function reduced($element, callable $mapper)
+    private function reduced($value, callable $mapper)
     {
-        return $mapper($element);
+        return $mapper($value);
     }
 }

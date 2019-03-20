@@ -6,7 +6,7 @@ use Quanta\Collections\FilteredCollection;
 
 describe('FilteredCollection', function () {
 
-    context('when the iterable is an array', function () {
+    context('when the collection is an array', function () {
 
         context('when there is no filter', function () {
 
@@ -24,11 +24,10 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -57,7 +56,7 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding the values passing all the filters', function () {
+                it('should return a collection containing the values passing all the filters', function () {
 
                     $this->filter1->with('value1')->returns(true);
                     $this->filter2->with('value1')->returns(true);
@@ -73,7 +72,6 @@ describe('FilteredCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value3']);
 
                 });
@@ -84,7 +82,7 @@ describe('FilteredCollection', function () {
 
     });
 
-    context('when the iterable is an iterator', function () {
+    context('when the collection is an iterator', function () {
 
         context('when there is no filter', function () {
 
@@ -104,11 +102,10 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -139,7 +136,7 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding the values passing all the filters', function () {
+                it('should return a collection containing the values passing all the filters', function () {
 
                     $this->filter1->with('value1')->returns(true);
                     $this->filter2->with('value1')->returns(true);
@@ -155,7 +152,6 @@ describe('FilteredCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value3']);
 
                 });
@@ -166,7 +162,7 @@ describe('FilteredCollection', function () {
 
     });
 
-    context('when the iterable is a traversable', function () {
+    context('when the collection is a traversable', function () {
 
         context('when there is no filter', function () {
 
@@ -190,11 +186,10 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding all the values', function () {
+                it('should return a collection containing all the values', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value2', 'value3']);
 
                 });
@@ -229,7 +224,7 @@ describe('FilteredCollection', function () {
 
             describe('->getIterator()', function () {
 
-                it('should return a generator yielding the values passing all the filters', function () {
+                it('should return a collection containing the values passing all the filters', function () {
 
                     $this->filter1->with('value1')->returns(true);
                     $this->filter2->with('value1')->returns(true);
@@ -245,7 +240,6 @@ describe('FilteredCollection', function () {
 
                     $test = $this->collection->getIterator();
 
-                    expect($test)->toBeAnInstanceOf(Generator::class);
                     expect(iterator_to_array($test))->toEqual(['value1', 'value3']);
 
                 });

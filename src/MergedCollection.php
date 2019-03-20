@@ -5,20 +5,20 @@ namespace Quanta\Collections;
 final class MergedCollection implements \IteratorAggregate
 {
     /**
-     * The iterables to merge.
+     * The collections to merge.
      *
      * @var iterable[]
      */
-    private $iterables;
+    private $collections;
 
     /**
      * Constructor.
      *
-     * @param iterable ...$iterables
+     * @param iterable ...$collections
      */
-    public function __construct(iterable ...$iterables)
+    public function __construct(iterable ...$collections)
     {
-        $this->iterables = $iterables;
+        $this->collections = $collections;
     }
 
     /**
@@ -26,9 +26,9 @@ final class MergedCollection implements \IteratorAggregate
      */
     public function getIterator()
     {
-        foreach ($this->iterables as $iterable) {
-            foreach ($iterable as $element) {
-                yield $element;
+        foreach ($this->collections as $collection) {
+            foreach ($collection as $value) {
+                yield $value;
             }
         }
     }

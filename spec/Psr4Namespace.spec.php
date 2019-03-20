@@ -14,7 +14,7 @@ describe('Psr4Namespace', function () {
 
         beforeEach(function () {
 
-            $this->collection = new Psr4Namespace('Test\\NS', __DIR__ . '/.test/directory');
+            $this->collection = new Psr4Namespace('Test\\NS', __DIR__ . '/some/directory');
 
         });
 
@@ -26,14 +26,14 @@ describe('Psr4Namespace', function () {
 
         describe('->getIterator()', function () {
 
-            it('should return a psr4 class iterator with no filter', function () {
+            it('should return a class collection with no filter', function () {
 
                 $test = $this->collection->getIterator();
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new IsClassDefinitionFile),
-                        new ToRelativePathname(__DIR__ . '/.test/directory'),
+                        new Directory(__DIR__ . '/some/directory', new IsClassDefinitionFile),
+                        new ToRelativePathname(__DIR__ . '/some/directory'),
                         new ToPsr4Fqcn('Test\\NS')
                     )
                 ));
@@ -48,7 +48,7 @@ describe('Psr4Namespace', function () {
 
         beforeEach(function () {
 
-            $this->collection = new Psr4Namespace('Test\\NS', __DIR__ . '/.test/directory', ...[
+            $this->collection = new Psr4Namespace('Test\\NS', __DIR__ . '/some/directory', ...[
                 $this->filter1 = function () {},
                 $this->filter2 = function () {},
                 $this->filter3 = function () {},
@@ -64,14 +64,14 @@ describe('Psr4Namespace', function () {
 
         describe('->getIterator()', function () {
 
-            it('should return a directory iterator with the filters', function () {
+            it('should return a class collection with the filters', function () {
 
                 $test = $this->collection->getIterator();
 
                 expect($test)->toEqual(new FilteredCollection(
                     new MappedCollection(
-                        new Directory(__DIR__ . '/.test/directory', new IsClassDefinitionFile),
-                        new ToRelativePathname(__DIR__ . '/.test/directory'),
+                        new Directory(__DIR__ . '/some/directory', new IsClassDefinitionFile),
+                        new ToRelativePathname(__DIR__ . '/some/directory'),
                         new ToPsr4Fqcn('Test\\NS')
                     ),
                     $this->filter1,

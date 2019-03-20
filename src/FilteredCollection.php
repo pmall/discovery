@@ -5,14 +5,14 @@ namespace Quanta\Collections;
 final class FilteredCollection implements \IteratorAggregate
 {
     /**
-     * The elements to loop over.
+     * The collection to filter.
      *
      * @var iterable
      */
-    private $elements;
+    private $collection;
 
     /**
-     * The filters to apply on the iterable elements.
+     * The filters to apply on the collection values.
      *
      * @var callable[]
      */
@@ -21,12 +21,12 @@ final class FilteredCollection implements \IteratorAggregate
     /**
      * Constructor.
      *
-     * @param iterable $elements
+     * @param iterable $collection
      * @param callable ...$filters
      */
-    public function __construct(iterable $elements, callable ...$filters)
+    public function __construct(iterable $collection, callable ...$filters)
     {
-        $this->elements = $elements;
+        $this->collection = $collection;
         $this->filters = $filters;
     }
 
@@ -35,23 +35,23 @@ final class FilteredCollection implements \IteratorAggregate
      */
     public function getIterator()
     {
-        foreach ($this->elements as $element) {
-            if ($this->filtered($element)) {
-                yield $element;
+        foreach ($this->collection as $value) {
+            if ($this->filtered($value)) {
+                yield $value;
             }
         }
     }
 
     /**
-     * Return whether the given element is passing all the filters.
+     * Return whether the given value is passing all the filters.
      *
-     * @param mixed $element
+     * @param mixed $value
      * @return bool
      */
-    private function filtered($element): bool
+    private function filtered($value): bool
     {
         foreach ($this->filters as $filter) {
-            if (! $filter($element)) {
+            if (! $filter($value)) {
                 return false;
             }
         }
