@@ -2,8 +2,15 @@
 
 namespace Quanta\Collections;
 
-final class Directory implements \IteratorAggregate
+final class Directory implements FileSourceInterface
 {
+    /**
+     * The default FilesystemIterator options.
+     *
+     * @var int
+     */
+    const DEFAULT_OPTIONS = \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS;
+
     /**
      * The path of the directory containing the files.
      *
@@ -12,37 +19,32 @@ final class Directory implements \IteratorAggregate
     private $path;
 
     /**
-     * The filters used to filter out the files.
+     * The FilesystemIterator options to use.
      *
-     * @var callable[]
+     * @var int
      */
-    private $filters;
+    private $options;
 
     /**
      * Constructor.
      *
      * @param string    $path
-     * @param callable  ...$filters
+     * @param int       $options
      */
-    public function __construct(string $path, callable ...$filters)
+    public function __construct(string $path, int $options = self::DEFAULT_OPTIONS)
     {
         $this->path = $path;
-        $this->filters = $filters;
+        $this->options = $options;
     }
 
     /**
      * @inheritdoc
      */
-    public function getIterator()
+    public function files(): iterable
     {
-        $options = \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::UNIX_PATHS;
-
         try {
-            return new FilteredCollection(
-                new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($this->path, $options)
-                ),
-                ...$this->filters
+            return new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($this->path, $this->options)
             );
         }
 

@@ -2,7 +2,7 @@
 
 namespace Quanta\Collections;
 
-final class Psr4Namespace implements \IteratorAggregate
+final class Psr4Namespace implements ClassSourceInterface
 {
     /**
      * The namespace prefix to prepend.
@@ -19,38 +19,31 @@ final class Psr4Namespace implements \IteratorAggregate
     private $path;
 
     /**
-     * The filters used to filter out fully qualified class names.
-     *
-     * @var callable[]
-     */
-    private $filters;
-
-    /**
      * Constructor.
      *
-     * @param string    $prefix
-     * @param string    $path
-     * @param callable  ...$filters
+     * @param string $prefix
+     * @param string $path
      */
-    public function __construct(string $prefix, string $path, callable ...$filters)
+    public function __construct(string $prefix, string $path)
     {
         $this->prefix = $prefix;
         $this->path = $path;
-        $this->filters = $filters;
     }
 
     /**
      * @inheritdoc
      */
-    public function getIterator()
+    public function classes(): iterable
     {
-        return new FilteredCollection(
-            new MappedCollection(
-                new Directory($this->path, new IsClassDefinitionFile),
-                new ToRelativePathname($this->path),
-                new ToPsr4Fqcn($this->prefix)
+        return new MappedCollection(
+            new FilteredCollection(
+                new FileCollection(
+                    new Directory($this->path)
+                ),
+                new IsClassDefinitionFile
             ),
-            ...$this->filters
+            new ToRelativePathname($this->path),
+            new ToPsr4Fqcn($this->prefix)
         );
     }
 }
