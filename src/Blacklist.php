@@ -5,41 +5,44 @@ namespace Quanta\Collections;
 final class Blacklist
 {
     /**
-     * The pattern the string must not match.
+     * The patterns the string must not match.
      *
-     * @var string
+     * @var string[]
      */
-    private $pattern;
-
-    /**
-     * Return a new Blacklist from the given pattern.
-     *
-     * @param string $pattern
-     * @return \Quanta\Collections\Blacklist
-     */
-    public static function instance(string $pattern): self
-    {
-        return new self($pattern);
-    }
+    private $patterns;
 
     /**
      * Constructor.
      *
-     * @param string $pattern
+     * @param string ...$patterns
      */
-    public function __construct(string $pattern)
+    public function __construct(string ...$patterns)
     {
-        $this->pattern = $pattern;
+        $this->patterns = $patterns;
     }
 
     /**
-     * Return whether the given string does not match the pattern.
+     * Return whether the given string does not match any pattern.
      *
      * @param string $subject
      * @return bool
      */
     public function __invoke(string $subject): bool
     {
-        return preg_match($this->pattern, $subject) === 0;
+        foreach ($this->patterns as $pattern) {
+            $result = preg_match($pattern, $subject);
+
+            if ($result === 1) {
+                return false;
+            }
+
+            if ($result === false) {
+                throw new \LogicException(
+                    sprintf('preg_match() failed with code %s', preg_last_error())
+                );
+            }
+        }
+
+        return true;
     }
 }
