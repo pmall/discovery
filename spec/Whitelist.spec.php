@@ -26,7 +26,7 @@ describe('Whitelist', function () {
 
             beforeEach(function () {
 
-                $this->filter = new Whitelist(
+                $this->predicate = new Whitelist(
                     '/^.+?\[pattern1\].+?$/',
                     '/^.+?\[pattern2\].+?$/',
                     '/^.+?\[pattern3\].+?$/'
@@ -40,7 +40,7 @@ describe('Whitelist', function () {
 
                     it('should return true', function () {
 
-                        $test = ($this->filter)('test[pattern1][pattern2][pattern3]test');
+                        $test = ($this->predicate)('test[pattern1][pattern2][pattern3]test');
 
                         expect($test)->toBeTruthy();
 
@@ -52,7 +52,7 @@ describe('Whitelist', function () {
 
                     it('should return false', function () {
 
-                        $test = ($this->filter)('test[pattern]test');
+                        $test = ($this->predicate)('test[pattern]test');
 
                         expect($test)->toBeFalsy();
 
@@ -66,10 +66,8 @@ describe('Whitelist', function () {
 
                 it('should throw a LogicException', function () {
 
-                    $filter = new Whitelist('/(?:\D+|<\d+>)*[!?]/');
-
-                    $test = function () use ($filter) {
-                        $filter('foobar foobar foobar');
+                    $test = function () {
+                        (new Whitelist('/(?:\D+|<\d+>)*[!?]/'))('foobar foobar foobar');
                     };
 
                     expect($test)->toThrow(new LogicException);

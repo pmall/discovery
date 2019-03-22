@@ -6,7 +6,7 @@ describe('IsClassDefinitionFile', function () {
 
     beforeEach(function () {
 
-        $this->filter = new IsClassDefinitionFile;
+        $this->predicate = new IsClassDefinitionFile;
 
     });
 
@@ -18,7 +18,7 @@ describe('IsClassDefinitionFile', function () {
 
                 $file = new SplFileInfo('Foo/Bar/Baz/SomeClass.php');
 
-                $test = ($this->filter)($file);
+                $test = ($this->predicate)($file);
 
                 expect($test)->toBeTruthy();
 
@@ -32,7 +32,7 @@ describe('IsClassDefinitionFile', function () {
 
                 $file = new SplFileInfo('Foo/Bar/Baz/somefile');
 
-                $test = ($this->filter)($file);
+                $test = ($this->predicate)($file);
 
                 expect($test)->toBeFalsy();
 

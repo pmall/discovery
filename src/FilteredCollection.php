@@ -12,22 +12,22 @@ final class FilteredCollection implements \IteratorAggregate
     private $collection;
 
     /**
-     * The filters to apply on the collection values.
+     * The the predicates the collection values must satisfy.
      *
      * @var callable[]
      */
-    private $filters;
+    private $predicates;
 
     /**
      * Constructor.
      *
      * @param iterable $collection
-     * @param callable ...$filters
+     * @param callable ...$predicates
      */
-    public function __construct(iterable $collection, callable ...$filters)
+    public function __construct(iterable $collection, callable ...$predicates)
     {
         $this->collection = $collection;
-        $this->filters = $filters;
+        $this->predicates = $predicates;
     }
 
     /**
@@ -43,15 +43,15 @@ final class FilteredCollection implements \IteratorAggregate
     }
 
     /**
-     * Return whether the given value is passing all the filters.
+     * Return whether the given value is satisfying all the predicates.
      *
      * @param mixed $value
      * @return bool
      */
     private function filtered($value): bool
     {
-        foreach ($this->filters as $filter) {
-            if (! $filter($value)) {
+        foreach ($this->predicates as $predicate) {
+            if (! $predicate($value)) {
                 return false;
             }
         }

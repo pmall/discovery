@@ -26,7 +26,7 @@ describe('Blacklist', function () {
 
             beforeEach(function () {
 
-                $this->filter = new Blacklist(
+                $this->predicate = new Blacklist(
                     '/^.+?\[pattern1\].+?$/',
                     '/^.+?\[pattern2\].+?$/',
                     '/^.+?\[pattern3\].+?$/'
@@ -40,7 +40,7 @@ describe('Blacklist', function () {
 
                     it('should return true', function () {
 
-                        $test = ($this->filter)('test[pattern]test');
+                        $test = ($this->predicate)('test[pattern]test');
 
                         expect($test)->toBeTruthy();
 
@@ -52,7 +52,7 @@ describe('Blacklist', function () {
 
                     it('should return false', function () {
 
-                        $test = ($this->filter)('test[pattern2]test');
+                        $test = ($this->predicate)('test[pattern2]test');
 
                         expect($test)->toBeFalsy();
 
@@ -66,10 +66,8 @@ describe('Blacklist', function () {
 
                 it('should throw a LogicException', function () {
 
-                    $filter = new Blacklist('/(?:\D+|<\d+>)*[!?]/');
-
-                    $test = function () use ($filter) {
-                        $filter('foobar foobar foobar');
+                    $test = function () {
+                        (new Blacklist('/(?:\D+|<\d+>)*[!?]/'))('foobar foobar foobar');
                     };
 
                     expect($test)->toThrow(new LogicException);
