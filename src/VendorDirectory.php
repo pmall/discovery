@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Quanta\Collections;
+namespace Quanta\Discovery;
 
-final class VendorDirectory implements ClassSourceInterface
+final class VendorDirectory implements \IteratorAggregate
 {
     /**
      * The vendor directory path.
@@ -24,7 +24,7 @@ final class VendorDirectory implements ClassSourceInterface
     /**
      * @inheritdoc
      */
-    public function classes(): iterable
+    public function getIterator()
     {
         $path = (string) realpath($this->path);
 
@@ -65,7 +65,7 @@ final class VendorDirectory implements ClassSourceInterface
      * vendor directory located at the given absolute path.
      *
      * @param string $vendor
-     * @return \Quanta\Collections\ClassCollection[]
+     * @return iterable[]
      */
     private function psr4Namespaces(string $vendor): array
     {
@@ -78,9 +78,7 @@ final class VendorDirectory implements ClassSourceInterface
                 foreach ($map as $prefix => $paths) {
                     foreach ((array) $paths as $path) {
                         if (is_string($path) && stripos($path, $vendor) !== false) {
-                            $collections[] = new ClassCollection(
-                                new Psr4Namespace($prefix, $path)
-                            );
+                            $collections[] = new Psr4Namespace($prefix, $path);
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Quanta\Collections;
+namespace Quanta\Discovery;
 
 final class MergedCollection implements \IteratorAggregate
 {

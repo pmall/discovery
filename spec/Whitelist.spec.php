@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\Whitelist;
+use Quanta\Discovery\Whitelist;
 
 describe('Whitelist', function () {
 

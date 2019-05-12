@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\ToRelativePathname;
+use Quanta\Discovery\ToRelativePathname;
 
 describe('ToRelativePathname', function () {
 

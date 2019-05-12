@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\IsClassDefinitionFile;
+use Quanta\Discovery\IsClassDefinitionFile;
 
 describe('IsClassDefinitionFile', function () {
 

@@ -2,7 +2,7 @@
 
 use function Eloquent\Phony\Kahlan\stub;
 
-use Quanta\Collections\FilteredCollection;
+use Quanta\Discovery\FilteredCollection;
 
 describe('FilteredCollection', function () {
 

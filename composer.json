@@ -1,15 +1,16 @@
 {
-    "name": "quanta/collections",
+    "name": "quanta/discovery",
     "type": "library",
-    "description": "Library providing collections",
+    "description": "Library for collecting classes installed through composer",
     "keywords": [
-        "collections"
+        "composer",
+        "discovery"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/quantaphp/collections",
+    "homepage": "https://github.com/quantaphp/discovery",
     "support": {
-        "issues": "https://github.com/quantaphp/collections/issues",
-        "source": "https://github.com/quantaphp/collections"
+        "issues": "https://github.com/quantaphp/discovery/issues",
+        "source": "https://github.com/quantaphp/discovery"
     },
     "authors": [
         {
@@ -30,7 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Quanta\\Collections\\": "src"
+            "Quanta\\Discovery\\": "src"
         }
     }
 }

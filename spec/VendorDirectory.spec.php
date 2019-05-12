@@ -1,10 +1,8 @@
 <?php
 
-use Quanta\Collections\Psr4Namespace;
-use Quanta\Collections\VendorDirectory;
-use Quanta\Collections\ClassCollection;
-use Quanta\Collections\MergedCollection;
-use Quanta\Collections\ClassSourceInterface;
+use Quanta\Discovery\Psr4Namespace;
+use Quanta\Discovery\VendorDirectory;
+use Quanta\Discovery\MergedCollection;
 
 describe('VendorDirectory', function () {
 
@@ -12,7 +10,7 @@ describe('VendorDirectory', function () {
 
         $this->path = __DIR__ . '/.test';
 
-        $this->vendordir = new VendorDirectory($this->path . '/vendor');
+        $this->collection = new VendorDirectory($this->path . '/vendor');
 
         if (file_exists($this->path . '/vendor/composer/autoload_classmap.php')) {
             unlink($this->path . '/vendor/composer/autoload_classmap.php');
@@ -32,13 +30,13 @@ describe('VendorDirectory', function () {
 
     });
 
-    it('should implement ClassSourceInterface', function () {
+    it('should implement IteratorAggregate', function () {
 
-        expect($this->vendordir)->toBeAnInstanceOf(ClassSourceInterface::class);
+        expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
     });
 
-    describe('->classes()', function () {
+    describe('->getIterator()', function () {
 
         beforeEach(function () {
 
@@ -87,7 +85,7 @@ describe('VendorDirectory', function () {
 
             it('should return an empty collection', function () {
 
-                $test = $this->vendordir->classes();
+                $test = $this->collection->getIterator();
 
                 expect(iterator_to_array($test))->toEqual([]);
 
@@ -107,7 +105,7 @@ describe('VendorDirectory', function () {
 
                 it('should return an empty collection', function () {
 
-                    $test = $this->vendordir->classes();
+                    $test = $this->collection->getIterator();
 
                     expect(iterator_to_array($test))->toEqual([]);
 
@@ -138,7 +136,7 @@ describe('VendorDirectory', function () {
 
                         it('should return a class collection', function () {
 
-                            $test = $this->vendordir->classes();
+                            $test = $this->collection->getIterator();
 
                             expect($test)->toEqual(new MergedCollection([
                                 'Foo\\Bar\\Baz\\SomeClass1',
@@ -158,30 +156,24 @@ describe('VendorDirectory', function () {
                                 $this->namespaces
                             );
 
-                            $test = $this->vendordir->classes();
+                            $test = $this->collection->getIterator();
 
                             expect($test)->toEqual(new MergedCollection(
                                 [
                                     'Foo\\Bar\\Baz\\SomeClass1',
                                     'Foo\\Bar\\Baz\\SomeClass2',
                                 ],
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns1\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns11/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns1\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns11/Foo/Bar/Baz'
                                 ),
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns1\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns12/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns1\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns12/Foo/Bar/Baz'
                                 ),
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns2\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns21/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns2\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns21/Foo/Bar/Baz'
                                 )
                             ));
 
@@ -202,27 +194,21 @@ describe('VendorDirectory', function () {
                                 $this->namespaces
                             );
 
-                            $test = $this->vendordir->classes();
+                            $test = $this->collection->getIterator();
 
                             expect($test)->toEqual(new MergedCollection(
                                 [],
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns1\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns11/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns1\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns11/Foo/Bar/Baz'
                                 ),
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns1\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns12/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns1\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns12/Foo/Bar/Baz'
                                 ),
-                                new ClassCollection(
-                                    new Psr4Namespace(
-                                        'Ns2\\Foo\\Bar\\Baz\\',
-                                        realpath($this->path) . '/vendor/src/Ns21/Foo/Bar/Baz'
-                                    )
+                                new Psr4Namespace(
+                                    'Ns2\\Foo\\Bar\\Baz\\',
+                                    realpath($this->path) . '/vendor/src/Ns21/Foo/Bar/Baz'
                                 )
                             ));
 
@@ -234,7 +220,7 @@ describe('VendorDirectory', function () {
 
                         it('should return an empty collection', function () {
 
-                            $test = $this->vendordir->classes();
+                            $test = $this->collection->getIterator();
 
                             expect(iterator_to_array($test))->toEqual([]);
 

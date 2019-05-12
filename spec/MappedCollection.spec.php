@@ -2,7 +2,7 @@
 
 use function Eloquent\Phony\Kahlan\stub;
 
-use Quanta\Collections\MappedCollection;
+use Quanta\Discovery\MappedCollection;
 
 describe('MappedCollection', function () {
 

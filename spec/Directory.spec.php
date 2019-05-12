@@ -1,7 +1,6 @@
 <?php
 
-use Quanta\Collections\Directory;
-use Quanta\Collections\FileSourceInterface;
+use Quanta\Discovery\Directory;
 
 describe('Directory', function () {
 
@@ -11,21 +10,21 @@ describe('Directory', function () {
 
             beforeEach(function () {
 
-                $this->directory = new Directory(__DIR__ . '/notfound');
+                $this->collection = new Directory(__DIR__ . '/notfound');
 
             });
 
-            it('should implement FileSourceInterface', function () {
+            it('should implement IteratorAggregate', function () {
 
-                expect($this->directory)->toBeAnInstanceOf(FileSourceInterface::class);
+                expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
             });
 
-            describe('->files()', function () {
+            describe('->getIterator()', function () {
 
                 it('should return an empty collection', function () {
 
-                    $test = $this->directory->files();
+                    $test = $this->collection->getIterator();
 
                     expect(iterator_to_array($test))->toEqual([]);
 
@@ -39,21 +38,21 @@ describe('Directory', function () {
 
             beforeEach(function () {
 
-                $this->directory = new Directory(__DIR__ . '/notfound', FilesystemIterator::SKIP_DOTS);
+                $this->collection = new Directory(__DIR__ . '/notfound', FilesystemIterator::SKIP_DOTS);
 
             });
 
-            it('should implement FileSourceInterface', function () {
+            it('should implement IteratorAggregate', function () {
 
-                expect($this->directory)->toBeAnInstanceOf(FileSourceInterface::class);
+                expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
             });
 
-            describe('->files()', function () {
+            describe('->getIterator()', function () {
 
                 it('should return an empty collection', function () {
 
-                    $test = $this->directory->files();
+                    $test = $this->collection->getIterator();
 
                     expect(iterator_to_array($test))->toEqual([]);
 
@@ -71,23 +70,23 @@ describe('Directory', function () {
 
             beforeEach(function () {
 
-                $this->directory = new Directory(__DIR__ . '/.test');
+                $this->collection = new Directory(__DIR__ . '/.test');
 
             });
 
-            it('should implement FileSourceInterface', function () {
+            it('should implement IteratorAggregate', function () {
 
-                expect($this->directory)->toBeAnInstanceOf(FileSourceInterface::class);
+                expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
             });
 
-            describe('->files()', function () {
+            describe('->getIterator()', function () {
 
                 it('should return a file collection with the default options', function () {
 
                     $options = FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS;
 
-                    $test = $this->directory->files();
+                    $test = $this->collection->getIterator();
 
                     expect($test)->toEqual(new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator(__DIR__ . '/.test', $options)
@@ -103,21 +102,21 @@ describe('Directory', function () {
 
             beforeEach(function () {
 
-                $this->directory = new Directory(__DIR__ . '/.test', FilesystemIterator::SKIP_DOTS);
+                $this->collection = new Directory(__DIR__ . '/.test', FilesystemIterator::SKIP_DOTS);
 
             });
 
-            it('should implement FileSourceInterface', function () {
+            it('should implement IteratorAggregate', function () {
 
-                expect($this->directory)->toBeAnInstanceOf(FileSourceInterface::class);
+                expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
             });
 
-            describe('->files()', function () {
+            describe('->getIterator()', function () {
 
                 it('should return a file collection with the options', function () {
 
-                    $test = $this->directory->files();
+                    $test = $this->collection->getIterator();
 
                     expect($test)->toEqual(new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator(__DIR__ . '/.test', FilesystemIterator::SKIP_DOTS)

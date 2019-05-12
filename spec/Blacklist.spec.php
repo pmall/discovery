@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\Blacklist;
+use Quanta\Discovery\Blacklist;
 
 describe('Blacklist', function () {
 

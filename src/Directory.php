@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Quanta\Collections;
+namespace Quanta\Discovery;
 
-final class Directory implements FileSourceInterface
+final class Directory implements \IteratorAggregate
 {
     /**
      * The default FilesystemIterator options.
@@ -40,7 +40,7 @@ final class Directory implements FileSourceInterface
     /**
      * @inheritdoc
      */
-    public function files(): iterable
+    public function getIterator()
     {
         try {
             return new \RecursiveIteratorIterator(

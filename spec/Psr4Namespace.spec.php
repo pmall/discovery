@@ -1,40 +1,36 @@
 <?php
 
-use Quanta\Collections\Directory;
-use Quanta\Collections\ToPsr4Fqcn;
-use Quanta\Collections\Psr4Namespace;
-use Quanta\Collections\FileCollection;
-use Quanta\Collections\MappedCollection;
-use Quanta\Collections\ToRelativePathname;
-use Quanta\Collections\FilteredCollection;
-use Quanta\Collections\ClassSourceInterface;
-use Quanta\Collections\IsClassDefinitionFile;
+use Quanta\Discovery\Directory;
+use Quanta\Discovery\ToPsr4Fqcn;
+use Quanta\Discovery\Psr4Namespace;
+use Quanta\Discovery\MappedCollection;
+use Quanta\Discovery\ToRelativePathname;
+use Quanta\Discovery\FilteredCollection;
+use Quanta\Discovery\IsClassDefinitionFile;
 
 describe('Psr4Namespace', function () {
 
     beforeEach(function () {
 
-        $this->namespace = new Psr4Namespace('NS\\Foo\\Bar\\Baz', __DIR__ . '/Foo/Bar/Baz');
+        $this->collection = new Psr4Namespace('NS\\Foo\\Bar\\Baz', __DIR__ . '/Foo/Bar/Baz');
 
     });
 
-    it('should implement ClassSourceInterface', function () {
+    it('should implement IteratorAggregate', function () {
 
-        expect($this->namespace)->toBeAnInstanceOf(ClassSourceInterface::class);
+        expect($this->collection)->toBeAnInstanceOf(IteratorAggregate::class);
 
     });
 
-    describe('->classes()', function () {
+    describe('->getIterator()', function () {
 
         it('should return a class collection', function () {
 
-            $test = $this->namespace->classes();
+            $test = $this->collection->getIterator();
 
             expect($test)->toEqual(new MappedCollection(
                 new FilteredCollection(
-                    new FileCollection(
-                        new Directory(__DIR__ . '/Foo/Bar/Baz')
-                    ),
+                    new Directory(__DIR__ . '/Foo/Bar/Baz'),
                     new IsClassDefinitionFile
                 ),
                 new ToRelativePathname(__DIR__ . '/Foo/Bar/Baz'),

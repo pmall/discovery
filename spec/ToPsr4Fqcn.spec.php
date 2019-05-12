@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\ToPsr4Fqcn;
+use Quanta\Discovery\ToPsr4Fqcn;
 
 describe('ToPsr4Fqcn', function () {
 

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Quanta\Collections;
+namespace Quanta\Discovery;
 
-final class Psr4Namespace implements ClassSourceInterface
+final class Psr4Namespace implements \IteratorAggregate
 {
     /**
      * The namespace prefix to prepend.
@@ -33,15 +33,10 @@ final class Psr4Namespace implements ClassSourceInterface
     /**
      * @inheritdoc
      */
-    public function classes(): iterable
+    public function getIterator()
     {
         return new MappedCollection(
-            new FilteredCollection(
-                new FileCollection(
-                    new Directory($this->path)
-                ),
-                new IsClassDefinitionFile
-            ),
+            new FilteredCollection(new Directory($this->path), new IsClassDefinitionFile),
             new ToRelativePathname($this->path),
             new ToPsr4Fqcn($this->prefix)
         );

@@ -1,12 +1,12 @@
 <?php
 
-use Quanta\Collections\HasExtension;
+use Quanta\Discovery\HasExtension;
 
 describe('HasExtension', function () {
 
     beforeEach(function () {
 
-        $this->filter = new HasExtension('php');
+        $this->predicate = new HasExtension('php');
 
     });
 
@@ -18,7 +18,7 @@ describe('HasExtension', function () {
 
                 $file = new SplFileInfo('Foo/Bar/Baz/SomeClass.php');
 
-                $test = ($this->filter)($file);
+                $test = ($this->predicate)($file);
 
                 expect($test)->toBeTruthy();
 
@@ -32,7 +32,7 @@ describe('HasExtension', function () {
 
                 $file = new SplFileInfo('Foo/Bar/Baz/somefile.json');
 
-                $test = ($this->filter)($file);
+                $test = ($this->predicate)($file);
 
                 expect($test)->toBeFalsy();
 

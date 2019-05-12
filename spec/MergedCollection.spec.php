@@ -1,6 +1,6 @@
 <?php
 
-use Quanta\Collections\MergedCollection;
+use Quanta\Discovery\MergedCollection;
 
 describe('MergedCollection', function () {
 
